@@ -39,6 +39,11 @@ void addReadToKmer(int kIdx, bool isNew, int rdIdx, short int pos, bool isRev) {
         kmersPtr[kIdx].rCnt = 0;
         kmersPtr[kIdx].revRCnt = 0;
         kmersPtr[kIdx].validByKIdx = -1;
+        for(short int pIdx = 0; pIdx < 3; pIdx++){
+            for(short int nIdx = 0; nIdx < 4; nIdx++){
+                kmersPtr[kIdx].nucFreqs[pIdx][nIdx] = 0;
+            }
+        }
     }
     if (isRev) {
         kmersPtr[kIdx].revRCnt += 1;
@@ -87,9 +92,11 @@ int hashKmer(char *str, int len, int rIdx, bool excludeN, short int k, bool getI
     uint64_t pre_mask = 0;
     bool canAddNow = false;
     bool isRev = false;
+    short int halfK = (k - 1)/2;
 
-    for (int y = 0; y < len; y++) {
-
+    for (int y = 1; y < len - 1; y++) { //y != 0 && y != len-1
+      if(y != halfK)
+      {
         if (excludeN && (str[y] == 'N' || str[y] == 'n') && (y != lastN + ((k - 1) / 2) - 1)) {
             lastN = y;
         }
@@ -147,6 +154,7 @@ int hashKmer(char *str, int len, int rIdx, bool excludeN, short int k, bool getI
                 }
             }
         }
+      }
     }
     if (getIdxOnly) {
         if (gram < gram_reverse && ((gram & pre_mask) == pre_gram) && (*ind->kmerToIdx)[gram] != 0) {

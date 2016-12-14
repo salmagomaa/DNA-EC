@@ -54,20 +54,20 @@ int getReads(string orgFNm) {
 /**
  * A function that set reads initial data (crrIdx)
  */
-void setReadsData() {
-    for (int i = 0; i < readsCnt; i++) {
-        readsPtr[i].crr = (char *) malloc((readsPtr[i].len) * sizeof (char));
-        readsPtr[i].crrFreq = (int *) malloc((readsPtr[i].len) * sizeof (int));
-        if (readsPtr[i].crr == 0) {
-            printf("ERROR in allocating a readsPtr[i].crr/readsPtr[i].crrFreq: Out of memory\n");
-            return;
-        }
-        for (short int y = 0; y < readsPtr[i].len; y++) {
-            readsPtr[i].crr[y] = CRR_NO;
-            readsPtr[i].crrFreq[y] = 0;
-        }
-    }
-}
+// void setReadsData() {
+//     for (int i = 0; i < readsCnt; i++) {
+//         readsPtr[i].crr = (char *) malloc((readsPtr[i].len) * sizeof (char));
+//         readsPtr[i].crrFreq = (int *) malloc((readsPtr[i].len) * sizeof (int));
+//         if (readsPtr[i].crr == 0) {
+//             printf("ERROR in allocating a readsPtr[i].crr/readsPtr[i].crrFreq: Out of memory\n");
+//             return;
+//         }
+//         for (short int y = 0; y < readsPtr[i].len; y++) {
+//             readsPtr[i].crr[y] = CRR_NO;
+//             readsPtr[i].crrFreq[y] = 0;
+//         }
+//     }
+// }
 
 
 /**

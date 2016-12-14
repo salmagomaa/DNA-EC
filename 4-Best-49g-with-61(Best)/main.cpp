@@ -38,7 +38,7 @@ int main() {
 
         gettimeofday(&crrStartedAt, NULL);
 
-        setReadsData();
+        // setReadsData();
         meta << "Reads data are set successfully!" << endl;
 
         for (short int i = 0; i < levels; i++) {
