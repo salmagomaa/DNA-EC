@@ -41,25 +41,30 @@ struct Kmer {
     int revRCnt;
     int *revRIds;
     short int *revStPos;
-    uint64_t validByKIdx; //-1 ->Not validated yet, itself->is valid, otherwise-> idx of its valid kmer idx
+    uint64_t kmerGpIdx; //-1 ->Not grouped
 };
 
 struct Indexing {
     std::tr1::unordered_map<uint64_t, uint64_t> *kmerToIdx; /* Mapping from solid-gram to its id */
+    std::tr1::unordered_map<uint64_t, uint64_t> *kmerGpToIdx; /* Mapping from kmer to its id */
 };
 
-//struct KmerGp {
-//    uint64_t kCnt;
-//    uint64_t *kIds;
-//    uint64_t bestKIdx;
-//};
-//
+struct KmerGp {
+   uint64_t kCnt;
+   uint64_t *kIds;
+   bool *isRev;
+   uint64_t bestKIdx;
+};
+
+
 //Global Variables
 short int seqLn;
 struct Read *readsPtr;
 int readsCnt = 0;
 struct Kmer *kmersPtr;
 uint64_t kmersCnt = 0;
+struct KmerGp *kmerGpsPtr;
+uint64_t kmerGpsCnt = 0;
 struct Indexing *ind; /* The k-mer index */
 int kmersInvalidCnt = 0;
 int *corresKIdxs;
@@ -70,6 +75,9 @@ int corresKIdxCnt = 0;
 int kIdxOfMaxFreq = -1;
 bool kOfMaxFreqIsRev = false;
 bool checkDel;
+short int k;
+short int nonRelativeVarPos[3] = {0, ((k - 1) / 2), k - 1};
+short int nonRelativeLen = 3;
 //struct KmerGp *kGpsPtr;
 //uint64_t kGpsCnt = 0;
 //short int k;

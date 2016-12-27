@@ -28,8 +28,8 @@ int main() {
     gettimeofday(&startedAt, NULL);
 
     string orgFNm = "/home/ubuntu/SRR088759.fastq";
-    short int levels =5;
-    short int k = 25;
+    short int levels =1;
+    k = 25;
     checkDel = false;
     seqLn = 4;
     if (getReads(orgFNm) == 0) {
@@ -43,18 +43,15 @@ int main() {
 
         for (short int i = 0; i < levels; i++) {
             meta << "Level #" << i << endl;
-            buildValidKmersHashing(k);
+            buildValidKmersHashing();
             meta << "Kmers count: " << kmersCnt << endl;
 
-            correctMismatchedKmers(k);
-            meta << "Mismatched kmers corrected successfully" << endl;
-            
-            correctSolidKmers(k);
-            meta << "Solid kmers corrected successfully" << endl;
+            correctKmerGps();
+            meta << "kmer Gps corrected successfully" << endl;
 
             kmersInvalidCnt = 0;
             for (int kk = 0; kk < kmersCnt; kk++) {
-                if (kmersPtr[kk].validByKIdx == -1) {
+                if (kmersPtr[kk].kmerGpIdx == -1) {
                     kmersInvalidCnt += 1;
                 }
             }
